@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+
+  <assemblyIdentity name="Search3DModel" version="1.0.0.0"></assemblyIdentity>
+
+  <clrClass clsid="{08eb6268-0bd8-4e22-8a84-b23a6c873f96}" progid="Search3DModel.StandardAddInServer" threadingModel="Both" name="Search3DModel.StandardAddInServer" runtimeVersion=""></clrClass>
+
+  <file name="Search3DModel.dll" hashalg="SHA1"></file>
+
+</assembly>

@@ -1,0 +1,14 @@
+<Addin Type="Standard">
+  <!--Created for Autodesk Inventor Version 20.0-->
+  <ClassId>{08eb6268-0bd8-4e22-8a84-b23a6c873f96}</ClassId>
+  <ClientId>{08eb6268-0bd8-4e22-8a84-b23a6c873f96}</ClientId>
+  <DisplayName>Search3DModel</DisplayName>
+  <Description>Search3DModel</Description>
+  <Assembly>Search3DModel.dll</Assembly>
+  <LoadOnStartUp>1</LoadOnStartUp>
+  <UserUnloadable>1</UserUnloadable>
+  <Hidden>0</Hidden>
+  <SupportedSoftwareVersionGreaterThan>19..</SupportedSoftwareVersionGreaterThan>
+  <DataVersion>1</DataVersion>
+  <UserInterfaceVersion>1</UserInterfaceVersion>
+</Addin>
