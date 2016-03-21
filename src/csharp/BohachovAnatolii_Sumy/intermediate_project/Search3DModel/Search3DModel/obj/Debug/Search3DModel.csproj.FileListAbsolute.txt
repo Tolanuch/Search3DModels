@@ -1,0 +1,9 @@
+E:\Documents\AMC_Bridge\Search3DModel\Search3DModel\obj\Debug\Search3DModel.csprojResolveAssemblyReference.cache
+E:\Documents\AMC_Bridge\Search3DModel\Search3DModel\bin\Debug\Search3DModel.dll
+E:\Documents\AMC_Bridge\Search3DModel\Search3DModel\bin\Debug\Search3DModel.pdb
+E:\Documents\AMC_Bridge\Search3DModel\Search3DModel\bin\Debug\autodesk.inventor.interop.dll
+E:\Documents\AMC_Bridge\Search3DModel\Search3DModel\obj\Debug\Search3DModel.dll
+E:\Documents\AMC_Bridge\Search3DModel\Search3DModel\obj\Debug\Search3DModel.pdb
+E:\Documents\AMC_Bridge\Search3DModel\Search3DModel\bin\Debug\MySql.Data.dll
+E:\Documents\AMC_Bridge\Search3DModel\Search3DModel\obj\Debug\Search3DModel.ConfigurationForm.resources
+E:\Documents\AMC_Bridge\Search3DModel\Search3DModel\obj\Debug\Search3DModel.csproj.GenerateResource.Cache
