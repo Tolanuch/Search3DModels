@@ -15,7 +15,7 @@ namespace Search3DModel
     {
         private static ConfigurationForm Instance;
 
-        ConfigurationClass config =  ConfigurationClass.getConfiguration();
+        Configuration config =  Configuration.getConfiguration();
         private ConfigurationForm()
         {
             InitializeComponent();

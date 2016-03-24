@@ -16,7 +16,7 @@ namespace Search3DModel
 	{
 		#region Data Members
         
-		private static Inventor.Application inventorApplication;
+		protected static Inventor.Application inventorApplication;
 
 		private ButtonDefinition buttonDefinition;
 
@@ -50,11 +50,10 @@ namespace Search3DModel
         
 		#region "Methods"
 
-		public Button(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Icon standardIcon, Icon largeIcon, ButtonDisplayEnum buttonDisplayType, Inventor.Application invApplication)
+		public Button(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Icon standardIcon, Icon largeIcon, ButtonDisplayEnum buttonDisplayType)
 		{
             try
             {
-                inventorApplication = invApplication;
 				// Get IPictureDisp for icons
 				stdole.IPictureDisp standardIconIPictureDisp;
 				standardIconIPictureDisp = (stdole.IPictureDisp)Support.IconToIPicture(standardIcon);
@@ -78,11 +77,10 @@ namespace Search3DModel
             }
         }
 
-		public Button(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType, Inventor.Application invApplication)
+		public Button(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType)
 		{
             try
             {
-                inventorApplication= invApplication;
                 // Create button definition
                 buttonDefinition = inventorApplication.CommandManager.ControlDefinitions.AddButtonDefinition(displayName, internalName, commandType, clientId, description, tooltip, Type.Missing, Type.Missing, buttonDisplayType);
 								

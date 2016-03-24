@@ -11,8 +11,8 @@ namespace Search3DModel
     /// 
     public class SearchButton : Button
     {       
-        public SearchButton(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType, Inventor.Application invApplication)
-			: base(displayName, internalName, commandType, clientId, description, tooltip, buttonDisplayType,invApplication)
+        public SearchButton(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType)
+			: base(displayName, internalName, commandType, clientId, description, tooltip, buttonDisplayType)
 		{
 
         }

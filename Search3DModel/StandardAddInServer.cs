@@ -18,7 +18,7 @@ namespace Search3DModel
         #region Members
 
         // Inventor application object.
-        private Inventor.Application inventorApplication;
+        private Inventor.Application inventorApplication;        
 
         // Buttons
         private ConfigurationButton configurationButton;
@@ -77,25 +77,27 @@ namespace Search3DModel
 
 
             // Create buttons
+            Button.InventorApplication = inventorApplication;
+
             addButton = new AddButton(
                 "Add", "Add", CommandTypesEnum.kShapeEditCmdType,
                 addInCLSIDString, "Add current detail to database",
-                "Add", ButtonDisplayEnum.kAlwaysDisplayText, inventorApplication);
+                "Add", ButtonDisplayEnum.kAlwaysDisplayText);
 
             searchButton = new SearchButton(
                 "Search", "Search", CommandTypesEnum.kShapeEditCmdType,
                 addInCLSIDString, "Search 3D model(s)",
-                "Search", ButtonDisplayEnum.kAlwaysDisplayText, inventorApplication);
+                "Search", ButtonDisplayEnum.kAlwaysDisplayText);
 
             configurationButton = new ConfigurationButton(
                 "Configuration", "Configuration", CommandTypesEnum.kShapeEditCmdType,
                 addInCLSIDString, "Configuration database connection",
-                "Configuration",  ButtonDisplayEnum.kAlwaysDisplayText, inventorApplication);
+                "Configuration", ButtonDisplayEnum.kAlwaysDisplayText);
 
             addFromFolderButton = new AddFromFolderButton(
                 "Add from folder(s)", "Add from folder(s)", CommandTypesEnum.kShapeEditCmdType,
                 addInCLSIDString, "Add 3D model(s) from folder(s)",
-                "Add from folder(s)", ButtonDisplayEnum.kAlwaysDisplayText, inventorApplication);
+                "Add from folder(s)", ButtonDisplayEnum.kAlwaysDisplayText);
 
             // Create the command category
             CommandCategory cmdCategory = inventorApplication.CommandManager.CommandCategories.Add("3DModel", "Autodesk:Search3DModel:SlotCmdCat", addInCLSIDString);
