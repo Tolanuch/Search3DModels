@@ -6,10 +6,18 @@ using System.IO;
 
 namespace Search3DModel
 {
-   public class ConfigurationClass
+    /// <summary>
+    /// Configuration class to manage configuration in add-in app
+    /// </summary>
+    /// 
+   public class Configuration
     {
-#region Properties
-        private static ConfigurationClass instance;
+
+        #region Properties
+
+        private string cfgFilePath;
+        private static Configuration instance;
+
         // Path to the library folder with model files
         private string path;
         public string Path
@@ -30,6 +38,7 @@ namespace Search3DModel
                 }
             }
         }
+
         // IP string for DB connection
         private string ip;
         public string IP
@@ -125,21 +134,26 @@ namespace Search3DModel
         }
 
         #endregion Properties
-        private ConfigurationClass() { }
-        public static ConfigurationClass getConfiguration()
+
+        private Configuration()
+        {
+            cfgFilePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)+"\\Documents\\Inventor" + "\\config_file.cfg";
+        }
+        public static Configuration getConfiguration()
         {
             if (instance == null)
-                instance = new ConfigurationClass();
+                instance = new Configuration();
             return instance;
         }
 
         #region Methods
+
         // Method to read configuration information from cfg file
         public void ReadConfigurationFromFile()
         {  
             try
             {
-            StreamReader cfgFile = new StreamReader("config_file.cfg");
+            StreamReader cfgFile = new StreamReader(cfgFilePath);
                 if (cfgFile.Peek() != -1)
                 {
                     instance.Path = cfgFile.ReadLine();
@@ -152,7 +166,7 @@ namespace Search3DModel
                 }
                 else
                 {
-                    MessageBox.Show("Configuration file does not exists or empty");
+                    MessageBox.Show("Configuration file does not exist or empty");
                 }
             }
             catch (Exception ex)
@@ -164,8 +178,8 @@ namespace Search3DModel
         public void WriteConfigurationToFile()
         {
             try
-            {
-                StreamWriter cfgFile = new StreamWriter("config_file.cfg");
+            {  
+                StreamWriter cfgFile = new StreamWriter(cfgFilePath);
                 cfgFile.WriteLine(instance.Path);
                 cfgFile.WriteLine(instance.IP);
                 cfgFile.WriteLine(instance.Port);

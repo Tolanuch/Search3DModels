@@ -12,8 +12,8 @@ namespace Search3DModel
     public class ConfigurationButton : Button
     {
         ConfigurationForm configurationForm;
-        public ConfigurationButton(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType, Inventor.Application invApplication)
-            : base(displayName, internalName, commandType, clientId, description, tooltip, buttonDisplayType, invApplication)
+        public ConfigurationButton(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType)
+            : base(displayName, internalName, commandType, clientId, description, tooltip, buttonDisplayType)
         {
 
         }
