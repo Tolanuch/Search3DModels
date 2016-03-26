@@ -8,3 +8,4 @@ E:\Documents\AMC_Bridge\Search3DModel\Search3DModel\obj\Debug\Search3DModel.Conf
 E:\Documents\AMC_Bridge\Search3DModel\Search3DModel\obj\Debug\Search3DModel.csproj.GenerateResource.Cache
 E:\Documents\AMC_Bridge\Search3DModel\Search3DModel\obj\Debug\Search3DModel.AddForm.resources
 E:\Documents\AMC_Bridge\Search3DModel\Search3DModel\bin\Debug\MySql.Data.dll
+E:\Documents\AMC_Bridge\Search3DModel\Search3DModel\obj\Debug\Search3DModel.AddFromFolderForm.resources

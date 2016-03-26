@@ -1,6 +1,5 @@
 ﻿using System;
 using Inventor;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace Search3DModel

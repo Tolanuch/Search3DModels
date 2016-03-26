@@ -1,8 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
 using Inventor;
-using Microsoft.Win32;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace Search3DModel
@@ -53,7 +51,7 @@ namespace Search3DModel
             // This method is called by Inventor when it loads the addin.
             // The AddInSiteObject provides access to the Inventor Application object.
             // The FirstTime flag indicates if the addin is loaded for the first time.
-
+                       
             // Initialize AddIn members.
             inventorApplication = addInSiteObject.Application;
 
@@ -108,6 +106,14 @@ namespace Search3DModel
             cmdCategory.Add(addFromFolderButton.ButtonDefinition);
 
             UserInterfaceEvents_OnResetRibbonInterface(null);
+
+            // Checking configuration file on existing
+            if (!System.IO.File.Exists(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile) + "\\Documents\\Inventor" + "\\config_file.cfg"))
+            {
+                MessageBox.Show("Please, set configuration for Serch 3D model add-in.");
+                ConfigurationForm configurationForm = ConfigurationForm.getInstance();
+                configurationForm.Show();
+            }
 
         }
 

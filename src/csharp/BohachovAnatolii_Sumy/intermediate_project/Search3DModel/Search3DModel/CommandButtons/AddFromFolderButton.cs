@@ -1,6 +1,5 @@
 ﻿using System;
 using Inventor;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace Search3DModel
@@ -20,8 +19,8 @@ namespace Search3DModel
         {
             try
             {
-                // Methods to show 
-
+                AddFromFolderForm addFromFolderForm = AddFromFolderForm.getInstance();
+                addFromFolderForm.Show();
             }
             catch (Exception e)
             {

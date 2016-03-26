@@ -169,6 +169,7 @@
             this.Controls.Add(this.ipTextBox);
             this.Controls.Add(this.ipLabel);
             this.Name = "ConfigurationForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Configuration";
             this.Load += new System.EventHandler(this.ConfigurationForm_Load);
             this.ResumeLayout(false);
