@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
 
 namespace Search3DModel
 {
@@ -15,10 +7,12 @@ namespace Search3DModel
     {
         private static ConfigurationForm Instance;
 
-        Configuration config =  Configuration.getConfiguration();
+        Configuration config;
         private ConfigurationForm()
         {
             InitializeComponent();
+            config = Configuration.getConfiguration();
+            config.ReadConfigurationFromFile();
         }
 
         public static ConfigurationForm getInstance()
@@ -46,9 +40,7 @@ namespace Search3DModel
 
         private void ConfigurationForm_Load(object sender, EventArgs e)
         {
-            // Load configurations to form            
-            config.ReadConfigurationFromFile();
-
+            // Load configurations to form
             pathTextBox.Text=config.Path;
             ipTextBox.Text=config.IP;
             portTextBox.Text=config.Port;

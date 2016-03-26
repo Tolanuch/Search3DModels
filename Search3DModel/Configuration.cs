@@ -1,5 +1,4 @@
 ﻿using System;
-using MySql.Data;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.IO;
@@ -34,7 +33,10 @@ namespace Search3DModel
                 }
                 else
                 {
-                    MessageBox.Show("Wrong library path format.");
+                    this.path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\Inventor\\DetailsLibrary";
+                    if (!Directory.Exists(this.path))
+                        Directory.CreateDirectory(this.path);
+                    MessageBox.Show("Wrong library path format. Path library setted to "+this.path);
                 }
             }
         }
@@ -136,8 +138,12 @@ namespace Search3DModel
         #endregion Properties
 
         private Configuration()
-        {
-            cfgFilePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)+"\\Documents\\Inventor" + "\\config_file.cfg";
+        {            
+            this.cfgFilePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)+"\\Documents\\Inventor" + "\\config_file.cfg";
+            if (!File.Exists(this.cfgFilePath))
+            {
+                File.Create(this.cfgFilePath);
+            }
         }
         public static Configuration getConfiguration()
         {

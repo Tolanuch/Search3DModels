@@ -1,5 +1,4 @@
 ﻿using System;
-using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 
@@ -53,7 +52,7 @@ namespace Search3DModel
         #region Methods
 
         // Method for adding model to database (DB)
-        public string AddCurrentModel()
+        public string AddModel()
         {
             try
             {
@@ -65,8 +64,9 @@ namespace Search3DModel
                 else
                 {
                     connection.Open();
+                    // Creating query with correct ' recognition
                     mySQLCommand.CommandText =
-                        String.Format("INSERT INTO parameters (Path, X,Y,Z) values ('{0}', {1}, {2}, {3});", this.Name, this.X, this.Y, this.Z);
+                        "INSERT INTO parameters (Path, X,Y,Z) values ('" + this.Name + "', " + this.X + "," + this.Y + ", " + this.Z + ");".Replace("'", "''");
                     mySQLCommand.ExecuteNonQuery();
                     connection.Close();
                     return "Model have added to database";
@@ -79,14 +79,8 @@ namespace Search3DModel
             }
         }
 
-        // Method for adding models from folder to DB
-        public void AddModelsFromFolder()
-        {
-
-        }
-
         // Method for searching model(s)
-        public void search3DModel()
+        public void Search3DModel()
         {
 
         }
@@ -97,9 +91,9 @@ namespace Search3DModel
             {
                 connection.Open();
                 mySQLCommand.CommandText =
-                    "SELECT ID FROM parameters  WHERE Path = '" + this.Name + "' and  X= " + this.X + " and Y= " + this.Y + " and Z=" + this.Z + ";";
+                    "SELECT ID FROM parameters  WHERE Path = '" + this.Name + "' and  X= " + this.X + " and Y= " + this.Y + " and Z=" + this.Z + ";".Replace("'", "''"); 
                 MySqlDataReader reader = mySQLCommand.ExecuteReader();
-                if (reader.HasRows && System.IO.File.Exists(config.Path + "\\" + this.Name))
+                if (reader.HasRows || System.IO.File.Exists(config.Path + "\\" + this.Name))
                 {
                     connection.Close();
                     return true;
