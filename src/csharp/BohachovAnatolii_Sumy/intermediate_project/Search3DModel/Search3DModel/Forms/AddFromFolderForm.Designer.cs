@@ -43,7 +43,7 @@
             this.folderListBox.HorizontalScrollbar = true;
             this.folderListBox.Location = new System.Drawing.Point(12, 12);
             this.folderListBox.Name = "folderListBox";
-            this.folderListBox.Size = new System.Drawing.Size(226, 134);
+            this.folderListBox.Size = new System.Drawing.Size(238, 134);
             this.folderListBox.TabIndex = 0;
             this.folderListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.folderListBox_KeyDown);
             // 
@@ -51,9 +51,9 @@
             // 
             this.modelsListBox.FormattingEnabled = true;
             this.modelsListBox.HorizontalScrollbar = true;
-            this.modelsListBox.Location = new System.Drawing.Point(330, 12);
+            this.modelsListBox.Location = new System.Drawing.Point(316, 12);
             this.modelsListBox.Name = "modelsListBox";
-            this.modelsListBox.Size = new System.Drawing.Size(388, 303);
+            this.modelsListBox.Size = new System.Drawing.Size(402, 303);
             this.modelsListBox.TabIndex = 1;
             this.modelsListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.modelsListBox_KeyDown);
             // 
@@ -90,23 +90,25 @@
             // showModelsButton
             // 
             this.showModelsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.showModelsButton.Location = new System.Drawing.Point(246, 28);
+            this.showModelsButton.Location = new System.Drawing.Point(256, 61);
             this.showModelsButton.Name = "showModelsButton";
-            this.showModelsButton.Size = new System.Drawing.Size(78, 107);
+            this.showModelsButton.Size = new System.Drawing.Size(54, 30);
             this.showModelsButton.TabIndex = 5;
-            this.showModelsButton.Tag = "";
-            this.showModelsButton.Text = "Show models in folder(s) ->";
+            this.showModelsButton.Tag = "Show models in folder(s)";
+            this.showModelsButton.Text = " >>";
             this.showModelsButton.UseVisualStyleBackColor = true;
             this.showModelsButton.Click += new System.EventHandler(this.showModelsButton_Click);
             // 
             // outputListBox
             // 
+            this.outputListBox.BackColor = System.Drawing.SystemColors.Control;
+            this.outputListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.outputListBox.FormattingEnabled = true;
             this.outputListBox.Items.AddRange(new object[] {
             "Output:"});
             this.outputListBox.Location = new System.Drawing.Point(12, 210);
             this.outputListBox.Name = "outputListBox";
-            this.outputListBox.Size = new System.Drawing.Size(298, 147);
+            this.outputListBox.Size = new System.Drawing.Size(298, 143);
             this.outputListBox.TabIndex = 6;
             // 
             // AddFromFolderForm

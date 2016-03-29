@@ -19,8 +19,8 @@ namespace Search3DModel
         {
             try
             {
-                // Methods to show
-
+                SearchForm searchForm = SearchForm.getInstance();
+                searchForm.Show();
             }
             catch (Exception e)
             {

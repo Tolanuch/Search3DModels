@@ -33,9 +33,9 @@ namespace Search3DModel
                 PartDocument currentDoc = (PartDocument)inventorApp.ActiveDocument;
                 Box size = currentDoc.ComponentDefinition.RangeBox;
                 // Taking parameters
-                double x = Math.Ceiling(Math.Abs(size.MaxPoint.X - size.MinPoint.X));
-                double y = Math.Ceiling(Math.Abs(size.MaxPoint.Y - size.MinPoint.Y));
-                double z = Math.Ceiling(Math.Abs(size.MaxPoint.Z - size.MinPoint.Z));
+                double x = Math.Abs(size.MaxPoint.X - size.MinPoint.X);
+                double y = Math.Abs(size.MaxPoint.Y - size.MinPoint.Y);
+                double z = Math.Abs(size.MaxPoint.Z - size.MinPoint.Z);
                 var currentModel = new Model3D(x, y, z, currentDoc.DisplayName);
                 if (!currentModel.Exists())
                     currentDoc.SaveAs(config.Path + "\\" + currentDoc.DisplayName, true);
