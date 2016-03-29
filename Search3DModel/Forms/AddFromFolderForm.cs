@@ -26,7 +26,7 @@ namespace Search3DModel
                 Instance = new AddFromFolderForm();
             return Instance;
         }
-
+        // Method for selecting folder by user
         private void addFolderButton_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog folderDialog = new FolderBrowserDialog();
@@ -68,7 +68,7 @@ namespace Search3DModel
                 Search(directoryInfo, file);
             }
         }
-
+        // Method for adding all chosen models in list
         private void addModelsButton_Click(object sender, EventArgs e)
         {
             try
@@ -89,15 +89,17 @@ namespace Search3DModel
                     {
                         PartDocument partDoc = (PartDocument)inventorApp.Documents.Open(modelPath, false);
                         Box size = partDoc.ComponentDefinition.RangeBox;
-                        x = Math.Ceiling(Math.Abs(size.MaxPoint.X - size.MinPoint.X));
-                        y = Math.Ceiling(Math.Abs(size.MaxPoint.Y - size.MinPoint.Y));
-                        z = Math.Ceiling(Math.Abs(size.MaxPoint.Z - size.MinPoint.Z));
+                        x = Math.Abs(size.MaxPoint.X - size.MinPoint.X);
+                        y = Math.Abs(size.MaxPoint.Y - size.MinPoint.Y);
+                        z = Math.Abs(size.MaxPoint.Z - size.MinPoint.Z);
                         Model3D model = new Model3D(x, y, z, partDoc.DisplayName);
                         if (!model.Exists())
+                        {
+                            i++;
                             partDoc.SaveAs(config.Path + "\\" + partDoc.DisplayName, true);
+                        }
                         outputs.Add((partDoc.DisplayName + ": " + model.AddModel()).ToString());
-                        partDoc.Close(true);
-                        i++;
+                        partDoc.Close(true);                        
                     });
                 // Adding output information to UI
                 foreach (string output in outputs)
