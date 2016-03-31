@@ -7,7 +7,7 @@ namespace Search3DModel
     {
         private static ConfigurationForm Instance;
 
-        Configuration config;
+        private readonly Configuration config;
         private ConfigurationForm()
         {
             InitializeComponent();
@@ -26,7 +26,7 @@ namespace Search3DModel
 
         private void saveConfigurationButton_Click(object sender, EventArgs e)
         {
-            // Save configuration            
+            // Save configuration to the object.
             config.Path = pathTextBox.Text;
             config.IP = ipTextBox.Text;
             config.Port = portTextBox.Text;
@@ -40,7 +40,7 @@ namespace Search3DModel
 
         private void ConfigurationForm_Load(object sender, EventArgs e)
         {
-            // Load configurations to form
+            // Load configurations to form.
             pathTextBox.Text=config.Path;
             ipTextBox.Text=config.IP;
             portTextBox.Text=config.Port;

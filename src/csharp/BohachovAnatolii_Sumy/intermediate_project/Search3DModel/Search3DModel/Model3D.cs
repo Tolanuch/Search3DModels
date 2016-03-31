@@ -13,22 +13,25 @@ namespace Search3DModel
     {
         #region Properies
 
-        private Configuration config = Configuration.getConfiguration();
+        private readonly Configuration config = Configuration.getConfiguration();
         private MySqlConnection connection;
         private MySqlCommand mySQLCommand;
                 
         private string name;
         /// <summary>
-        /// Name of model in library
+        /// Name of model in library.
         /// </summary>
         public string Name { set; get; }
-        // Length of 3D model
+        
+        // Length of 3D model.
         private double x;
         public double X { get; set; }
-        // Width of 3D model
+
+        // Width of 3D model.
         private double y;
         public double Y { get; set; }
-        // Height of 3D model
+
+        // Height of 3D model.
         private double z;
         public double Z { get; set; }
 
@@ -40,24 +43,35 @@ namespace Search3DModel
             this.Y = y;
             this.Z = z;
             this.Name = name;
-            // Creating MySQL connection
+            // Creating MySQL connection.
             connection = new MySqlConnection("Server=" + config.IP
                  + "; Port=" + config.Port + "; user id=" + config.Username + "; password=" + config.Password
                  + "; Persist Security Info = True;  database = " + config.DBName + ";  charset = utf8;");
             config.ReadConfigurationFromFile();
-            // Creating MySQL command
+            // Creating MySQL command.
             mySQLCommand = new MySqlCommand();
             mySQLCommand.Connection = connection;
+            try
+            {
+                connection.Open();
+                connection.Close();
+            }
+            catch (MySqlException)
+            {
+                connection.Close();
+                MessageBox.Show("Cannot connect to database. Please, check your configuration");
+            }
+            
         }
 
         #region Methods
 
-        // Method for adding model to database (DB)
+        // Method for adding model to database (DB).
         public string AddModel()
         {
             try
             {
-                // Executing query to database
+                // Executing query to database.
                 if (this.Exists())
                 {
                     return "This model already exists in database";
@@ -65,7 +79,7 @@ namespace Search3DModel
                 else
                 {
                     connection.Open();
-                    // Creating query with correct ' recognition
+                    // Creating query with correct ' recognition.
                     mySQLCommand.CommandText =
                         "INSERT INTO parameters (Name, X,Y,Z) values ('" + this.Name + "', " + this.X + "," + this.Y + ", " + this.Z + ");".Replace("'", "''");
                     mySQLCommand.ExecuteNonQuery();
@@ -81,15 +95,16 @@ namespace Search3DModel
             }
         }
 
-        // Method for searching model(s)
+        // Method for searching model(s).
         public DataTable Search3DModel(int dev)
         {
             try
             {
-                // Making double value from percentage
+                // Making double value from percentage.
                 double divMinus, divPlus;
                 divMinus = 1.0 - (double)dev / 100.0;
-                divPlus = 1.0 + (double)dev / 100.0;                
+                divPlus = 1.0 + (double)dev / 100.0;     
+                           
                 connection.Open();
                 mySQLCommand.CommandText =
                     "SELECT * FROM parameters  WHERE (X>= " + (this.X*divMinus) + " and X<=" + (this.X * divPlus) + ") "+
@@ -106,11 +121,12 @@ namespace Search3DModel
             {
                 connection.Close();
                 MessageBox.Show(e.Message);
-                DataTable dataTable;
-                return dataTable = new DataTable();
+                DataTable dataTable = new DataTable();
+                return dataTable;
             }
         }
-        // Method to check model for existing in database and in library folder
+
+        // Method to check model for existing in database and in library folder.
         public bool Exists()
         {
             try

@@ -6,8 +6,8 @@ namespace Search3DModel
 {
     public partial class SearchForm : Form
     {
-        private Inventor.Application inventorApp = Button.InventorApplication;
-        private Configuration config;
+        private readonly Inventor.Application inventorApp = Button.InventorApplication;
+        private readonly Configuration config;
 
         private static SearchForm Instance;
         private SearchForm()
@@ -23,7 +23,8 @@ namespace Search3DModel
                 Instance = new SearchForm();
             return Instance;
         }
-        // Handling non-numerical symbols
+
+        // Handling non-numerical symbols.
         private void numericOnly(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar==(char)Keys.Delete || e.KeyChar==(char)Keys.Back)
@@ -35,7 +36,8 @@ namespace Search3DModel
                 e.Handled = false;
             else e.Handled = true;
         }
-        // Check entered information about model parameters
+
+        // Check entered information about model parameters.
         private void checkFormat(object sender, EventArgs e)
         {
             if (!System.Text.RegularExpressions.Regex.IsMatch((sender as TextBox).Text, "^0(.\\d{1,10})?$|^[1-9][0-9]*(.\\d{1,10})?$"))
@@ -52,23 +54,27 @@ namespace Search3DModel
             this.Close();
             this.Dispose();
         }
-        // Fixing entered too big deviation
+        // Fixing entered too big deviation.
         private void deviationBox_Leave(object sender, EventArgs e)
         {
             if ((sender as NumericUpDown).Value > 100)
                 (sender as NumericUpDown).Value = 100;
         }
-        // Method for opening selected model in table
+
+        // Method for opening selected model in table.
         private void openButton_Click(object sender, EventArgs e)
         {
             try
             {
                 Inventor.PartDocument partDoc;
+                // For model name in table.
                 string name;
+                // For selected cell index in table.
                 int index;
 
                 index=searchGridView.SelectedCells[0].RowIndex;
                 name = searchGridView.Rows[index].Cells["Name"].Value.ToString();
+                // Full path to model in library.
                 string path;
                 path = config.Path + "\\" + name;
                 if (System.IO.File.Exists(path))
@@ -83,14 +89,17 @@ namespace Search3DModel
                 MessageBox.Show(ex.Message);
             }
         }
-        // Metod for searching model using entered model parameters
+
+        // Metod for searching model using entered model parameters.
         private void searchButton_Click(object sender, EventArgs e)
         {
             try
             {
+                // Taking paramters of model.
                 double x = Convert.ToDouble(xTextBox.Text);
                 double y = Convert.ToDouble(yTextBox.Text);
                 double z = Convert.ToDouble(zTextBox.Text);
+
                 Model3D model = new Model3D(x, y, z, "");
                 DataTable dataTable;
                 dataTable = model.Search3DModel((int)deviationBox.Value);

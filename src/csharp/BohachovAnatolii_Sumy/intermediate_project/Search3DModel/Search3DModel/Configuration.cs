@@ -6,7 +6,7 @@ using System.IO;
 namespace Search3DModel
 {
     /// <summary>
-    /// Configuration class to manage configuration in add-in app
+    /// Configuration class to manage configuration in add-in app.
     /// </summary>
     /// 
    public class Configuration
@@ -17,7 +17,7 @@ namespace Search3DModel
         private string cfgFilePath;
         private static Configuration instance;
 
-        // Path to the library folder with model files
+        // Path to the library folder with model files.
         private string path;
         public string Path
         {
@@ -41,7 +41,7 @@ namespace Search3DModel
             }
         }
 
-        // IP string for DB connection
+        // IP string for DB connection.
         private string ip;
         public string IP
         {
@@ -63,7 +63,7 @@ namespace Search3DModel
             }
         }
 
-        // Port string for DB connection
+        // Port string for DB connection.
         private string port;
         public string Port
         {
@@ -85,7 +85,7 @@ namespace Search3DModel
             }
         }
 
-        // Username string for DB connection
+        // Username string for DB connection.
         private string username;
         public string Username
         {
@@ -107,7 +107,7 @@ namespace Search3DModel
             }
         }
 
-        // Password string for DB connection
+        // Password string for DB connection.
         private string password;
         public string Password
         {
@@ -121,7 +121,7 @@ namespace Search3DModel
             }
         }
 
-        //Database name string for DB connection
+        //Database name string for DB connection.
         private string dbName;
         public string DBName
         {
@@ -154,7 +154,7 @@ namespace Search3DModel
 
         #region Methods
 
-        // Method to read configuration information from cfg file
+        // Method to read configuration information from cfg file.
         public void ReadConfigurationFromFile()
         {  
             try
@@ -180,7 +180,8 @@ namespace Search3DModel
                 MessageBox.Show(ex.Message);
             }
         }
-        // Method to write configuration information to cfg file
+
+        // Method to write configuration information to cfg file.
         public void WriteConfigurationToFile()
         {
             try
