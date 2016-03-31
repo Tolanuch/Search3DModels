@@ -9,8 +9,8 @@ namespace Search3DModel
 {
     public partial class AddFromFolderForm : Form
     {
-        private Inventor.Application inventorApp = Button.InventorApplication;
-        private Configuration config;
+        private readonly Inventor.Application inventorApp = Button.InventorApplication;
+        private readonly Configuration config;
 
         private  static AddFromFolderForm Instance;
         private AddFromFolderForm()
@@ -26,7 +26,8 @@ namespace Search3DModel
                 Instance = new AddFromFolderForm();
             return Instance;
         }
-        // Method for selecting folder by user
+
+        // Method for selecting folder by user.
         private void addFolderButton_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog folderDialog = new FolderBrowserDialog();
@@ -42,7 +43,7 @@ namespace Search3DModel
 
         private void showModelsButton_Click(object sender, EventArgs e)
         {
-            // Scan chosen directory(es) for inventor parts
+            // Scan chosen directory(es) for inventor parts.
             Regex file = new Regex(@".*\.ipt$");
             foreach (string folder in folderListBox.Items)
             {
@@ -51,7 +52,7 @@ namespace Search3DModel
             }
         }
 
-        // Scanning for Inventor Part files in chosen folders
+        // Scanning for Inventor Part files in chosen folders.
         void Search(DirectoryInfo dr, Regex file)
         {
             FileInfo[] fi = dr.GetFiles();
@@ -68,23 +69,24 @@ namespace Search3DModel
                 Search(directoryInfo, file);
             }
         }
-        // Method for adding all chosen models in list
+
+        // Method for adding all chosen models in list.
         private void addModelsButton_Click(object sender, EventArgs e)
         {
             try
             {
                 double x, y, z;
-                // Converting modelsListBox items to string
+                // Converting modelsListBox items to string.
                 var paths = new System.Collections.Generic.List<string>();
                 foreach (string item in modelsListBox.Items)
                 {
                     paths.Add(item);
                 }
-                // Value of added documents
+                // Value of added documents.
                 int i = 0;
                 // Creating analog element like outputsListBox which does not exists in UI thread.
                 var outputs = new System.Collections.Generic.List<string>();
-                // Multi threading for models adding
+                // Multi threading for models adding.
                 Parallel.ForEach<string>(paths, modelPath =>
                     {
                         PartDocument partDoc = (PartDocument)inventorApp.Documents.Open(modelPath, false);
@@ -101,7 +103,7 @@ namespace Search3DModel
                         outputs.Add((partDoc.DisplayName + ": " + model.AddModel()).ToString());
                         partDoc.Close(true);                        
                     });
-                // Adding output information to UI
+                // Adding output information to UI.
                 foreach (string output in outputs)
                     outputListBox.Items.Add(output);
                 outputListBox.Items.Add("Added " + i + " files");

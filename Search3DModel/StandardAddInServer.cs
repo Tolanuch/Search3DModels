@@ -18,19 +18,19 @@ namespace Search3DModel
         // Inventor application object.
         private Inventor.Application inventorApplication;        
 
-        // Buttons
+        // Buttons.
         private ConfigurationButton configurationButton;
         private AddButton addButton;
         private SearchButton searchButton;
         private AddFromFolderButton addFromFolderButton;
 
-        // User interface event
+        // User interface event.
         private UserInterfaceEvents userInterfaceEvents;
 
-        // Ribbon panel
+        // Ribbon panel.
         RibbonPanel search3DRibbonPanel;
 
-        //event handler delegates
+        // Event handler delegates.
         private Inventor.UserInterfaceEventsSink_OnResetCommandBarsEventHandler
             UserInterfaceEventsSink_OnResetCommandBarsEventDelegate;
         private Inventor.UserInterfaceEventsSink_OnResetEnvironmentsEventHandler
@@ -55,7 +55,7 @@ namespace Search3DModel
             // Initialize AddIn members.
             inventorApplication = addInSiteObject.Application;
 
-            // Initialize event delegates
+            // Initialize event delegates.
             userInterfaceEvents = inventorApplication.UserInterfaceManager.UserInterfaceEvents;
 
             UserInterfaceEventsSink_OnResetCommandBarsEventDelegate = new UserInterfaceEventsSink_OnResetCommandBarsEventHandler(UserInterfaceEvents_OnResetCommandBars);
@@ -67,14 +67,14 @@ namespace Search3DModel
             UserInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate = new UserInterfaceEventsSink_OnResetRibbonInterfaceEventHandler(UserInterfaceEvents_OnResetRibbonInterface);
             userInterfaceEvents.OnResetRibbonInterface += UserInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate;            
 
-            // Retrieve the GUID for this class
+            // Retrieve the GUID for this class.
             GuidAttribute addInCLSID;
             addInCLSID = (GuidAttribute)GuidAttribute.GetCustomAttribute(typeof(StandardAddInServer), typeof(GuidAttribute));
             string addInCLSIDString;
             addInCLSIDString = "{" + addInCLSID.Value + "}";
 
 
-            // Create buttons
+            // Create buttons.
             Button.InventorApplication = inventorApplication;
 
             addButton = new AddButton(
@@ -97,7 +97,7 @@ namespace Search3DModel
                 addInCLSIDString, "Add 3D model(s) from folder(s)",
                 "Add from folder(s)", ButtonDisplayEnum.kAlwaysDisplayText);
 
-            // Create the command category
+            // Create the command category.
             CommandCategory cmdCategory = inventorApplication.CommandManager.CommandCategories.Add("3DModel", "Autodesk:Search3DModel:SlotCmdCat", addInCLSIDString);
 
             cmdCategory.Add(addButton.ButtonDefinition);
@@ -107,7 +107,7 @@ namespace Search3DModel
 
             UserInterfaceEvents_OnResetRibbonInterface(null);
 
-            // Checking configuration file on existing
+            // Checking configuration file on existing.
             if (!System.IO.File.Exists(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile) + "\\Documents\\Inventor" + "\\config_file.cfg"))
             {
                 MessageBox.Show("Please, set configuration for Serch 3D model add-in.");
@@ -136,7 +136,7 @@ namespace Search3DModel
                     search3DRibbonPanel.Delete();
                 }
 
-                // Release inventor Application object
+                // Release inventor Application object.
                 Marshal.ReleaseComObject(inventorApplication);
                 inventorApplication = null;
 
@@ -179,9 +179,11 @@ namespace Search3DModel
                     commandBar = (Inventor.CommandBar)commandBars[i];
                     if (commandBar.InternalName == "Autodesk:Search3DModel:SlotToolbar")
                     {
-                        // Add buttons to toolbar
+                        // Add buttons to toolbar.
                         commandBar.Controls.AddButton(addButton.ButtonDefinition, 0);
                         commandBar.Controls.AddButton(configurationButton.ButtonDefinition, 0);
+                        commandBar.Controls.AddButton(addFromFolderButton.ButtonDefinition, 0);
+                        commandBar.Controls.AddButton(searchButton.ButtonDefinition, 0);
                         return;
                     }
                 }
@@ -222,46 +224,38 @@ namespace Search3DModel
                 UserInterfaceManager userInterfaceManager;
                 userInterfaceManager = inventorApplication.UserInterfaceManager;
 
-                // Get the ribbon associated with part document
+                // Get the ribbon associated with part document.
                 Inventor.Ribbons ribbons;
                 ribbons = userInterfaceManager.Ribbons;
 
                 Inventor.Ribbon partRibbon;
                 partRibbon = ribbons["Part"];
 
-                // Create a new ribbon tab
+                // Create a new ribbon tab.
                 RibbonTabs ribbonTabs;
                 ribbonTabs = partRibbon.RibbonTabs;
 
                 RibbonTab partSketchRibbonTab;
                 partSketchRibbonTab = ribbonTabs.Add("Search 3D Model", "Autodesk:Search3DModel:SlotRibbonPanel", "{08eb6268-0bd8-4e22-8a84-b23a6c873f96}", "", false);
-                // Create a new panel with the tab
+               
+                // Create a new panel with the tab.
                 RibbonPanels ribbonPanels;
                 ribbonPanels = partSketchRibbonTab.RibbonPanels;
 
                 search3DRibbonPanel = ribbonPanels.Add("Actions", "Autodesk:Search3DModel:SlotRibbonPanel", "{08eb6268-0bd8-4e22-8a84-b23a6c873f96}", "", false);
 
-                // Add controls to the slot panel
+                // Add controls to the slot panel.
                 CommandControls partSketchSlotRibbonPanelCtrls;
                 partSketchSlotRibbonPanelCtrls = search3DRibbonPanel.CommandControls;
 
                 CommandControl addCmdBtnCmdCtrl;
                 addCmdBtnCmdCtrl = partSketchSlotRibbonPanelCtrls.AddButton(addButton.ButtonDefinition, false, true, "", false);
 
-                //CommandControl separator1;
-                //separator0 = partSketchSlotRibbonPanelCtrls.AddSeparator();
-
                 CommandControl AddFilesFromFoldersCmdBtnCmdCtrl;
                 AddFilesFromFoldersCmdBtnCmdCtrl = partSketchSlotRibbonPanelCtrls.AddButton(addFromFolderButton.ButtonDefinition, false, true, "", false);
 
-                //CommandControl separator2;
-                //separator1 = partSketchSlotRibbonPanelCtrls.AddSeparator();
-
                 CommandControl SearchCmdBtnCmdCtrl;
                 SearchCmdBtnCmdCtrl = partSketchSlotRibbonPanelCtrls.AddButton(searchButton.ButtonDefinition, false, true, "", false);
-
-                //CommandControl separator3;
-                //separator3 = partSketchSlotRibbonPanelCtrls.AddSeparator();
 
                 CommandControl configurationCmdBtnCmdCtrl;
                 configurationCmdBtnCmdCtrl = partSketchSlotRibbonPanelCtrls.AddButton(configurationButton.ButtonDefinition, false, true, "", false);
