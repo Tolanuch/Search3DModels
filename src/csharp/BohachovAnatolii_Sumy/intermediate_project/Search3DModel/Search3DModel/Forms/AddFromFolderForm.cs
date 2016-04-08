@@ -86,6 +86,7 @@ namespace Search3DModel
                 int i = 0;
                 // Creating analog element like outputsListBox which does not exists in UI thread.
                 var outputs = new System.Collections.Generic.List<string>();
+
                 // Multi threading for models adding.
                 Parallel.ForEach<string>(paths, modelPath =>
                     {
@@ -103,6 +104,7 @@ namespace Search3DModel
                         outputs.Add((partDoc.DisplayName + ": " + model.AddModel()).ToString());
                         partDoc.Close(true);                        
                     });
+
                 // Adding output information to UI.
                 foreach (string output in outputs)
                     outputListBox.Items.Add(output);

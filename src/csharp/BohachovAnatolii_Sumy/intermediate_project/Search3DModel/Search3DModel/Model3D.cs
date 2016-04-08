@@ -2,6 +2,8 @@
 using System.Data;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Search3DModel
 {
@@ -13,7 +15,7 @@ namespace Search3DModel
     {
         #region Properies
 
-        private readonly Configuration config = Configuration.getConfiguration();
+       private readonly Configuration config = Configuration.getConfiguration();
         private MySqlConnection connection;
         private MySqlCommand mySQLCommand;
                 
@@ -21,19 +23,61 @@ namespace Search3DModel
         /// <summary>
         /// Name of model in library.
         /// </summary>
-        public string Name { set; get; }
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
+        }
         
         // Length of 3D model.
         private double x;
-        public double X { get; set; }
+        public double X
+        {
+            get
+            {
+                return x;
+            }
+            set
+            {
+                x = value;
+            }
+        }
 
         // Width of 3D model.
         private double y;
-        public double Y { get; set; }
+        public double Y
+        {
+            get
+            {
+                return y;
+            }
+            set
+            {
+                y = value;
+            }
+        }
 
         // Height of 3D model.
         private double z;
-        public double Z { get; set; }
+        public double Z
+        {
+            get
+            {
+                return z;
+            }
+            set
+            {
+                z = value;
+            }
+        }
+
+        public List<double> Parameters = new List<double>();
 
         #endregion Properties
 
@@ -96,32 +140,53 @@ namespace Search3DModel
         }
 
         // Method for searching model(s).
-        public DataTable Search3DModel(int dev)
+        public DataTable Search3DModel(int dev, int scale)
         {
             try
             {
                 // Making double value from percentage.
-                double divMinus, divPlus;
-                divMinus = 1.0 - (double)dev / 100.0;
-                divPlus = 1.0 + (double)dev / 100.0;     
-                           
-                connection.Open();
-                mySQLCommand.CommandText =
-                    "SELECT * FROM parameters  WHERE (X>= " + (this.X*divMinus) + " and X<=" + (this.X * divPlus) + ") "+
-                     " and (Y >= " + (this.Y*divMinus) + " and Y<= " + (this.Y * divPlus) + ") " +
-                     " and (Z >= " + (this.Z*divMinus) + " and Z<= " + (this.Z * divPlus) + "); "  ;
-                MySqlDataAdapter dataAdapter = new MySqlDataAdapter(mySQLCommand);
-                DataTable dataTable = new DataTable();
-                dataTable.Clear();
-                dataAdapter.Fill(dataTable);
-                connection.Close();
-                return dataTable;
+                double scaleD = (double)scale/100.0;                
+                double devMinus, devPlus;
+                devMinus = 1.0 - (double)dev / 100.0;
+                devPlus = 1.0 + (double)dev / 100.0;
+                if (scaleD == 1)
+                {
+                    // Executing query.
+                    connection.Open();
+                    mySQLCommand.CommandText =
+                        "SELECT * FROM parameters  WHERE (X>= " + (this.X * devMinus) + " and X<=" + (this.X * devPlus) + ") " +
+                         " and (Y >= " + (this.Y * devMinus) + " and Y<= " + (this.Y * devPlus) + ") " +
+                         " and (Z >= " + (this.Z * devMinus) + " and Z<= " + (this.Z * devPlus) + "); ";
+                    var dataAdapter = new MySqlDataAdapter(mySQLCommand);
+                    var dataTable = new DataTable();
+                    dataTable.Clear();
+                    dataAdapter.Fill(dataTable);
+                    connection.Close();
+                    return dataTable;
+                }
+                else
+                {
+                    connection.Open();
+                    mySQLCommand.CommandText =
+                        "SELECT * FROM parameters  WHERE ((X>= " + (this.X * devMinus*scaleD) + " and X<=" + (this.X * devPlus * scaleD) + ") " +
+                         " and (Y >= " + (this.Y * devMinus * scaleD) + " and Y<= " + (this.Y * devPlus * scaleD) + ") " +
+                         " and (Z >= " + (this.Z * devMinus * scaleD) + " and Z<= " + (this.Z * devPlus * scaleD) + ")) or " +
+                         " ((X >= " + (this.X * devMinus) + " and X<= " + (this.X * devPlus) + ") " +
+                         " and (Y >= " + (this.Y * devMinus) + " and Y<= " + (this.Y * devPlus) + ") " +
+                         " and (Z >= " + (this.Z * devMinus) + " and Z<= " + (this.Z * devPlus) + "));";
+                    var dataAdapter = new MySqlDataAdapter(mySQLCommand);
+                    var dataTable = new DataTable();
+                    dataTable.Clear();
+                    dataAdapter.Fill(dataTable);
+                    connection.Close();
+                    return dataTable;
+                }
             }
             catch (Exception e)
             {
                 connection.Close();
                 MessageBox.Show(e.Message);
-                DataTable dataTable = new DataTable();
+                var dataTable = new DataTable();
                 return dataTable;
             }
         }
@@ -152,6 +217,88 @@ namespace Search3DModel
                 MessageBox.Show(e.Message);
                 return false;
             }
+        }
+
+        public static Dictionary<string,double> Compare(Model3D referenceModel,  Model3D originalModel, List<Model3D> modelList,int deviation, int scale)
+        {
+            try
+            {
+                double stDev;
+                double  devMinus, devPlus;
+                double scaleD;
+                scaleD = (double)scale / 100.0;
+                devMinus = 1.0 - (double)deviation/ 100.0;
+                devPlus = 1.0 + (double)deviation / 100.0;
+
+                double avgParameter = 0.0;
+                if (!((originalModel.X >= referenceModel.X * devMinus) && (originalModel.X <= referenceModel.X * devPlus)
+                    && (originalModel.Y >= referenceModel.Y * devMinus) && (originalModel.Y <= referenceModel.Y * devPlus)
+                    && (originalModel.Z >= referenceModel.Z * devMinus) && (originalModel.Z <= referenceModel.Z * devPlus)))
+                {
+                    originalModel.X /= scaleD;
+                    originalModel.Y /= scaleD;
+                    originalModel.Z /= scaleD;
+                    foreach (var param in originalModel.Parameters)
+                    {
+                        avgParameter += param/scaleD;
+                    }
+                    avgParameter /= originalModel.Parameters.Count;
+                }
+                else
+                {
+                    foreach (var param in originalModel.Parameters)
+                    {
+                        avgParameter += param;
+                    }
+                    avgParameter /= originalModel.Parameters.Count;
+                }
+
+                // Creating standard deviation array for every model in modelList.
+                Dictionary<string,double> standDeviation = new Dictionary<string, double>();
+
+                int i,j;
+               
+                for (i = 0; i < modelList.Count; i++)
+                {
+                    stDev = 0;
+                    if (!((modelList[i].X >= referenceModel.X * devMinus) && (modelList[i].X <= referenceModel.X * devPlus)
+                    && (modelList[i].Y >= modelList[i].Y * devMinus) && (modelList[i].Y <= referenceModel.Y * devPlus)
+                    && (modelList[i].Z >= referenceModel.Z * devMinus) && (modelList[i].Z <= referenceModel.Z * devPlus)))
+                    {
+                        modelList[i].X /= scaleD;
+                        modelList[i].Y /= scaleD;
+                        modelList[i].Z /= scaleD;
+                        for (j = 0; j < modelList[i].Parameters.Count; j++)
+                        {
+                            stDev += Math.Pow((modelList[i].Parameters[j] / scaleD - avgParameter), 2);
+                        }
+                    }
+                    else
+                    {
+                        for (j = 0; j < modelList[i].Parameters.Count; j++)
+                        {
+                            stDev += Math.Pow((modelList[i].Parameters[j] - avgParameter), 2);
+                        }
+                    }
+                    standDeviation.Add(modelList[i].Name, Math.Sqrt(stDev / modelList[i].Parameters.Count));
+                }
+
+                // Sorting list by value.
+                standDeviation = standDeviation.OrderBy(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
+                
+                return standDeviation;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                Dictionary<string, double> standDeviation = new Dictionary<string, double>()
+                {
+                    { "Something went wrong", -1.0 }
+                };
+
+                return standDeviation;
+            }
+
         }
 
         #endregion Methods

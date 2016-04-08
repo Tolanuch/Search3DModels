@@ -1,7 +1,7 @@
 <Addin Type="Standard">
   <!--Created for Autodesk Inventor Version 20.0-->
-  <ClassId>{08eb6268-0bd8-4e22-8a84-b23a6c873f96}</ClassId>
-  <ClientId>{08eb6268-0bd8-4e22-8a84-b23a6c873f96}</ClientId>
+  <ClassId>{29fd8718-467c-4449-8eab-1031a4bc1a74}</ClassId>
+  <ClientId>{29fd8718-467c-4449-8eab-1031a4bc1a74}</ClientId>
   <DisplayName>Search3DModel</DisplayName>
   <Description>Search3DModel</Description>
   <Assembly>Search3DModel.dll</Assembly>

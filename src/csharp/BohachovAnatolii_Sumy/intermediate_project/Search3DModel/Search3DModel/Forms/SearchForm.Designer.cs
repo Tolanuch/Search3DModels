@@ -43,6 +43,10 @@
             this.openButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.hint = new System.Windows.Forms.ToolTip(this.components);
+            this.scaleBox = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.scaleLabel = new System.Windows.Forms.Label();
+            this.compareButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.deviationBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchGridView)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +65,7 @@
             this.xTextBox.Location = new System.Drawing.Point(19, 34);
             this.xTextBox.Name = "xTextBox";
             this.xTextBox.Size = new System.Drawing.Size(80, 20);
-            this.xTextBox.TabIndex = 1;
+            this.xTextBox.TabIndex = 8;
             this.xTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numericOnly);
             this.xTextBox.Leave += new System.EventHandler(this.checkFormat);
             // 
@@ -112,10 +116,10 @@
             // 
             // searchButton
             // 
-            this.searchButton.Location = new System.Drawing.Point(19, 221);
+            this.searchButton.Location = new System.Drawing.Point(19, 282);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(75, 23);
-            this.searchButton.TabIndex = 8;
+            this.searchButton.TabIndex = 1;
             this.searchButton.Tag = "";
             this.searchButton.Text = "Search";
             this.hint.SetToolTip(this.searchButton, "Search model in database");
@@ -160,7 +164,7 @@
             // 
             // openButton
             // 
-            this.openButton.Location = new System.Drawing.Point(501, 325);
+            this.openButton.Location = new System.Drawing.Point(420, 325);
             this.openButton.Name = "openButton";
             this.openButton.Size = new System.Drawing.Size(75, 23);
             this.openButton.TabIndex = 12;
@@ -188,14 +192,71 @@
             this.hint.InitialDelay = 500;
             this.hint.ReshowDelay = 100;
             // 
+            // scaleBox
+            // 
+            this.scaleBox.DisplayMember = "100";
+            this.scaleBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.scaleBox.FormattingEnabled = true;
+            this.scaleBox.Items.AddRange(new object[] {
+            "1000",
+            "500",
+            "400",
+            "250",
+            "200",
+            "100",
+            "50",
+            "40",
+            "25",
+            "20",
+            "10"});
+            this.scaleBox.Location = new System.Drawing.Point(20, 231);
+            this.scaleBox.Name = "scaleBox";
+            this.scaleBox.Size = new System.Drawing.Size(52, 21);
+            this.scaleBox.TabIndex = 14;
+            this.hint.SetToolTip(this.scaleBox, "Scale factor. 100% is default");
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(74, 232);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(20, 16);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "%";
+            // 
+            // scaleLabel
+            // 
+            this.scaleLabel.AutoSize = true;
+            this.scaleLabel.Location = new System.Drawing.Point(17, 214);
+            this.scaleLabel.Name = "scaleLabel";
+            this.scaleLabel.Size = new System.Drawing.Size(37, 13);
+            this.scaleLabel.TabIndex = 15;
+            this.scaleLabel.Text = "Scale:";
+            // 
+            // compareButton
+            // 
+            this.compareButton.Location = new System.Drawing.Point(501, 325);
+            this.compareButton.Name = "compareButton";
+            this.compareButton.Size = new System.Drawing.Size(75, 23);
+            this.compareButton.TabIndex = 16;
+            this.compareButton.Text = "Compare";
+            this.hint.SetToolTip(this.compareButton, "Compare active document to another");
+            this.compareButton.UseVisualStyleBackColor = true;
+            this.compareButton.Click += new System.EventHandler(this.compareButton_Click);
+            // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(669, 360);
+            this.Controls.Add(this.compareButton);
+            this.Controls.Add(this.scaleLabel);
+            this.Controls.Add(this.scaleBox);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.openButton);
             this.Controls.Add(this.searchGridView);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.percentLabel);
             this.Controls.Add(this.deviationBox);
             this.Controls.Add(this.searchButton);
@@ -210,6 +271,7 @@
             this.MinimizeBox = false;
             this.Name = "SearchForm";
             this.Text = "Search";
+            this.Load += new System.EventHandler(this.SearchForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.deviationBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchGridView)).EndInit();
             this.ResumeLayout(false);
@@ -233,5 +295,9 @@
         private System.Windows.Forms.Button openButton;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.ToolTip hint;
+        private System.Windows.Forms.ComboBox scaleBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label scaleLabel;
+        private System.Windows.Forms.Button compareButton;
     }
 }

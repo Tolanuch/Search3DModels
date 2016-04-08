@@ -84,11 +84,7 @@
       <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\Autodesk.Inventor.Interop\v4.0_20.0.0.0__d84147f8b4276564\autodesk.inventor.interop.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic.Compatibility" />
-    <Reference Include="MySql.Data, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="MySql.Data, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
@@ -98,7 +94,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs">
@@ -113,26 +109,32 @@
     <Compile Include="Forms\AddForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddForm.Designer.cs">
+    <Compile Include="Forms\AddForm.designer.cs">
       <DependentUpon>AddForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\AddFromFolderForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddFromFolderForm.Designer.cs">
+    <Compile Include="Forms\AddFromFolderForm.designer.cs">
       <DependentUpon>AddFromFolderForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ConfigurationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ConfigurationForm.Designer.cs">
+    <Compile Include="Forms\ConfigurationForm.designer.cs">
       <DependentUpon>ConfigurationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SearchForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SearchForm.Designer.cs">
+    <Compile Include="Forms\SearchForm.designer.cs">
       <DependentUpon>SearchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SearchInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SearchInfoForm.Designer.cs">
+      <DependentUpon>SearchInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model3D.cs" />
     <Compile Include="StandardAddInServer.cs">
@@ -148,6 +150,7 @@
   <ItemGroup>
     <None Include="Readme.txt" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Forms\AddForm.resx">
       <DependentUpon>AddForm.cs</DependentUpon>
@@ -160,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SearchForm.resx">
       <DependentUpon>SearchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SearchInfoForm.resx">
+      <DependentUpon>SearchInfoForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
