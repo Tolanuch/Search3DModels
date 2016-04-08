@@ -10,13 +10,13 @@ namespace Search3DModel
     /// that all Inventor AddIns are required to implement. The communication between Inventor and
     /// the AddIn is via the methods on this interface.
     /// </summary>
-    [GuidAttribute("08eb6268-0bd8-4e22-8a84-b23a6c873f96")]
+    [GuidAttribute("29fd8718-467c-4449-8eab-1031a4bc1a74")]
     public class StandardAddInServer : Inventor.ApplicationAddInServer
     {
         #region Members
 
         // Inventor application object.
-        private Inventor.Application inventorApplication;        
+        private Inventor.Application inventorApplication;
 
         // Buttons.
         private ConfigurationButton configurationButton;
@@ -51,7 +51,7 @@ namespace Search3DModel
             // This method is called by Inventor when it loads the addin.
             // The AddInSiteObject provides access to the Inventor Application object.
             // The FirstTime flag indicates if the addin is loaded for the first time.
-                       
+
             // Initialize AddIn members.
             inventorApplication = addInSiteObject.Application;
 
@@ -65,14 +65,13 @@ namespace Search3DModel
             userInterfaceEvents.OnResetEnvironments += UserInterfaceEventsSink_OnResetEnvironmentsEventDelegate;
 
             UserInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate = new UserInterfaceEventsSink_OnResetRibbonInterfaceEventHandler(UserInterfaceEvents_OnResetRibbonInterface);
-            userInterfaceEvents.OnResetRibbonInterface += UserInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate;            
+            userInterfaceEvents.OnResetRibbonInterface += UserInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate;
 
             // Retrieve the GUID for this class.
             GuidAttribute addInCLSID;
             addInCLSID = (GuidAttribute)GuidAttribute.GetCustomAttribute(typeof(StandardAddInServer), typeof(GuidAttribute));
             string addInCLSIDString;
             addInCLSIDString = "{" + addInCLSID.Value + "}";
-
 
             // Create buttons.
             Button.InventorApplication = inventorApplication;
@@ -237,7 +236,7 @@ namespace Search3DModel
 
                 RibbonTab partSketchRibbonTab;
                 partSketchRibbonTab = ribbonTabs.Add("Search 3D Model", "Autodesk:Search3DModel:SlotRibbonPanel", "{08eb6268-0bd8-4e22-8a84-b23a6c873f96}", "", false);
-               
+
                 // Create a new panel with the tab.
                 RibbonPanels ribbonPanels;
                 ribbonPanels = partSketchRibbonTab.RibbonPanels;
